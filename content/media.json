@@ -12,37 +12,48 @@
   "coverage": [
     {
       "outlet": "The Times",
-      "what": "Featured with other mental health campaigners in coverage of The Times's Gen Z survey: \"How happy are Gen Z adults?\""
+      "what": "How happy are Gen Z adults? The answer is brutal",
+      "url": "https://www.thetimes.com/uk/society/article/gen-z-mental-health-illness-debt-happiness-p692dxdkb"
+    },
+    {
+      "outlet": "BBC News",
+      "what": "A-level results day is nearly here - this is how you can be ready",
+      "url": "https://www.bbc.co.uk/news/articles/cvgxpp430rmo"
+    },
+    {
+      "outlet": "BBC News",
+      "what": "What results day is like when you're neurodivergent - and how parents can help",
+      "url": "https://www.bbc.co.uk/news/articles/c99mn51ny02o"
     },
     {
       "outlet": "Sky News",
-      "what": "Featured across Sky News channels for an assessment reform campaign."
+      "what": "FYI: Are exams worth the stress?",
+      "url": "https://youtu.be/rohXLu5H15g"
     },
     {
-      "outlet": "BBC News"
+      "outlet": "HuffPost",
+      "what": "On teenage unhappiness in the UK",
+      "url": "https://www.huffingtonpost.co.uk/entry/teen-unhappiness-levels-uk_uk_68247b0de4b021b5064a5fea"
     },
     {
-      "outlet": "BBC Radio 5 Live"
+      "outlet": "BBC Radio 5 Live",
+      "what": "Past appearances"
     },
     {
-      "outlet": "BBC CWR"
+      "outlet": "BBC local radio",
+      "what": "Past appearances"
     },
     {
-      "outlet": "The JVS Show"
-    },
-    {
-      "outlet": "LBC"
-    },
-    {
-      "outlet": "HuffPost"
+      "outlet": "LBC",
+      "what": "Past appearances"
     },
     {
       "outlet": "Earth Minutes",
-      "what": "On-camera interview."
+      "what": "On-camera interview"
     },
     {
       "outlet": "Impact Digest",
-      "what": "Profile feature."
+      "what": "Profile feature"
     }
   ]
 }
