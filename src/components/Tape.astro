@@ -9,7 +9,7 @@ const tilt = [-1.5, 1, -0.5, 1.5][i % 4];
 ---
 <li class="ep">
   <a class="tc" style={`--r:${tilt}deg`} href={u('/podcast/' + ep.slug)}
-     data-tape data-no={ep.number} data-guest={ep.guest} data-line={ep.line} data-secs={ep.seconds} data-audio={ep.audio}
+     data-tape data-art={u(`/covers/${ep.slug}.webp`)} data-headline={ep.headline} data-no={ep.number} data-guest={ep.guest} data-line={ep.line} data-secs={ep.seconds} data-audio={ep.audio}
      aria-label={`${ep.guest}, Ep ${ep.number}: ${ep.headline}`}>
     <span class="lbl"><b>{ep.guest}</b><i>Ep {ep.number}</i></span>
     <span class="win" aria-hidden="true"><span class="reel"></span><span class="reel"></span></span>

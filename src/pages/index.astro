@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Pic from '../components/Pic.astro';
 import Tape from '../components/Tape.astro';
+import Recorder from '../components/Recorder.astro';
 import { site, ladder, speaking, media, getProjects, u, mail, photo } from '../lib/site';
 import { getPodcast } from '../lib/podcast';
 import { series } from '../lib/schema';
@@ -47,27 +48,9 @@ const tilts = [-2.5, 2, 1.5, -2];
   <section class="wrap sec" id="podcast" aria-labelledby="pod-h">
     <p class="eyebrow">On air, {site.podcast.frequency}</p>
     <h2 class="pod-title" id="pod-h"><a href={u('/podcast')}>Creating Your <span class="ladder-word">Ladder</span></a></h2>
-    <p class="lead" style="max-width:52ch;margin:10px 0 26px">{site.podcast.strapline} Each guest is a tape: press play, or open one for the show notes.</p>
+    <p class="lead" style="max-width:52ch;margin:10px 0 26px">{site.podcast.strapline} Press play, or pick a tape from the shelf.</p>
 
-    <div class="deck" data-recorder>
-      <div class="screen" aria-live="off">
-        <p class="top"><span data-r-no>EP {String(latest.number).padStart(2, '0')}</span><span class="st" data-r-state>READY</span></p>
-        <p class="g" data-r-guest>{latest.guest}</p>
-        <p class="q" data-r-line>{latest.line}</p>
-        <div class="bars" aria-hidden="true">{Array.from({ length: 48 }, (_, k) => <span style={`height:${28 + ((k * 37) % 61)}%`}></span>)}</div>
-        <p class="time"><span data-r-now>0:00</span><span data-r-total>{latest.duration.replace(/^0/, '')}</span></p>
-      </div>
-      <div class="keys js-only">
-        <button type="button" class="key" data-r-prev aria-label="Older episode">Older</button>
-        <button type="button" class="key" data-r-back aria-label="−15 seconds">−15</button>
-        <button type="button" class="key play" data-r-play aria-pressed="false">Play</button>
-        <button type="button" class="key" data-r-fwd aria-label="+30 seconds">+30</button>
-        <button type="button" class="key" data-r-next aria-label="Newer episode">Newer</button>
-        <a class="key" data-r-page href={u('/podcast/' + latest.slug)}>Show notes</a>
-      </div>
-      <p class="no-js-only" style="flex:1 1 220px"><a class="key play" href={u('/podcast/' + latest.slug)}>Open the latest episode</a></p>
-      <audio preload="none"></audio>
-    </div>
+    <Recorder episodes={episodes} />
 
     <ul class="tapes" style="margin-top:44px">
       {episodes.map((ep, i) => <Tape ep={ep} i={i} player />)}

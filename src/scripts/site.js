@@ -114,7 +114,10 @@ if (deck) {
     const e = eps[i]; if (!e) return;
     $('[data-r-no]', deck).textContent = 'EP ' + String(e.no).padStart(2, '0');
     $('[data-r-guest]', deck).textContent = e.guest;
-    $('[data-r-line]', deck).textContent = e.line;
+    $('[data-r-line]', deck).textContent = e.headline;
+    $('[data-r-label]', deck).textContent = i === 0 ? 'Latest episode' : 'From the shelf';
+    const art = $('[data-r-art]', deck);
+    if (art && !art.src.endsWith(e.art)) { art.classList.add('swap'); art.src = e.art; art.alt = 'Episode cover: ' + e.guest; art.onload = () => art.classList.remove('swap'); }
     $('[data-r-total]', deck).textContent = fmt(Number(e.secs));
     $('[data-r-page]', deck).href = e.el.href;
     tapes.forEach((t, k) => t.classList.toggle('is-on', k === i));
@@ -129,13 +132,15 @@ if (deck) {
     const on = !audio.paused;
     $('[data-r-state]', deck).textContent = on ? 'PLAYING' : audio.currentTime > 0 ? 'PAUSED' : 'READY';
     const pb = $('[data-r-play]', deck);
-    pb.textContent = on ? 'Pause' : 'Play';
+    $('[data-r-play-label]', deck).textContent = on ? 'Pause' : 'Play';
+    deck.classList.toggle('is-live', on);
     pb.setAttribute('aria-pressed', String(on));
     tapes.forEach((t, k) => t.classList.toggle('is-playing', on && k === i));
   };
   const load = (k, play) => {
     i = (k + eps.length) % eps.length;
     audio.src = eps[i].audio; show(); paint();
+    if (!reduce) { deck.classList.remove('load'); void deck.offsetWidth; deck.classList.add('load'); }
     if (play) audio.play().catch(() => {}); else state();
   };
   $('[data-r-play]', deck).addEventListener('click', () => {
@@ -237,4 +242,20 @@ if (sw) {
   $$('button', sw).forEach((b) => b.addEventListener('click', () => set(b.dataset.view)));
   $$('[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));
   set('ladder');
+}
+
+/* ---------- gentle reveal as you scroll (only for things below the first screen) ---------- */
+if (!reduce && 'IntersectionObserver' in window) {
+  const els = $$('.sec > *, .page-hero > *, .two > .main > *, .two > aside > *, .vrow, .cards > li, .topics > li, .tapes > li, .notes > .note, .shots > li, .gallery > *, main > .wrap > .sheet');
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in'); io.unobserve(e.target);
+  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  let n = 0;
+  els.forEach((el) => {
+    if (el.closest('.book') || el.getBoundingClientRect().top < innerHeight * 0.92) return;
+    el.classList.add('rv'); el.style.setProperty('--rd', (n++ % 4) * 70 + 'ms'); io.observe(el);
+  });
+  // The lanyard swings once when the page arrives.
+  pass && pass.classList.add('arrive');
 }

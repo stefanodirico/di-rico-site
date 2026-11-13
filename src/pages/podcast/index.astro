@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Pic from '../../components/Pic.astro';
 import Tape from '../../components/Tape.astro';
+import Recorder from '../../components/Recorder.astro';
 import Listen from '../../components/Listen.astro';
 import { site, u, mail, ORIGIN } from '../../lib/site';
 import { getPodcast } from '../../lib/podcast';
@@ -34,6 +35,10 @@ const list = {
       </figure>
     </header>
 
+    <section aria-label="Player" style="margin-bottom:56px">
+      <Recorder episodes={episodes} />
+    </section>
+
     <section class="sheet" aria-label="Where to listen">
       <Listen />
     </section>
@@ -42,16 +47,8 @@ const list = {
       <h2 class="sec-h" id="eps-h">Episodes</h2>
       <p style="margin:6px 0 30px">{episodes.length} episodes so far, newest first. Each has its own page with show notes.</p>
       <ul class="tapes grid-all">
-        {episodes.map((ep, i) => <Tape ep={ep} i={i} />)}
+        {episodes.map((ep, i) => <Tape ep={ep} i={i} player />)}
       </ul>
-    </section>
-
-    <section class="sec" aria-labelledby="sp-h">
-      <h2 class="sec-h" id="sp-h">Play it here</h2>
-      <div class="embed" data-embed data-src={`https://open.spotify.com/embed/show/${p.spotifyShowId}`} data-title="Creating Your Ladder on Spotify" data-height="352" style="margin-top:18px">
-        <p class="ph">The Spotify player sets its own cookies, so it only loads if you allow embedded media.</p>
-        <p class="ph row"><button type="button" class="btn js-only" data-embed-allow>Allow and load the player</button><a class="ghost" href={p.spotify} rel="noopener">Open in Spotify instead</a></p>
-      </div>
     </section>
 
     <section class="sec two" style="padding-bottom:72px">

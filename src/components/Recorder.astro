@@ -1,0 +1,36 @@
+---
+// The recorder: one player for the whole show. Cover art comes from the feed; audio plays from the feed too.
+import { site, u } from '../lib/site';
+import type { Episode } from '../lib/podcast';
+interface Props { episodes: Episode[] }
+const { episodes } = Astro.props;
+const latest = episodes[0];
+---
+<div class="deck" data-recorder>
+  <p class="deck-note hand" aria-hidden="true">new tape every fortnight</p>
+  <div class="screen" aria-live="off">
+    <img class="art" data-r-art src={u(`/covers/${latest.slug}.webp`)} alt={`Episode cover: ${latest.guest}`} width="360" height="360" decoding="async">
+    <div class="scr">
+      <p class="top"><span data-r-label>Latest episode</span><span class="st"><span data-r-state>READY</span> · <span data-r-no>EP {String(latest.number).padStart(2, '0')}</span></span></p>
+      <p class="g" data-r-guest>{latest.guest}</p>
+      <p class="q" data-r-line>{latest.headline}</p>
+      <div class="bars" aria-hidden="true">{Array.from({ length: 56 }, (_, k) => <span style={`height:${26 + ((k * 37) % 67)}%;--d:${(k * 53) % 900}ms`}></span>)}</div>
+      <p class="time"><span data-r-now>0:00</span><span data-r-total>{latest.duration.replace(/^0/, '')}</span></p>
+    </div>
+  </div>
+  <div class="keys js-only">
+    <div class="transport">
+      <button type="button" class="key round" data-r-prev aria-label="Older episode"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
+      <button type="button" class="key play" data-r-play aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path class="i-play" d="M7 4v16l13-8z" fill="currentColor"/><path class="i-pause" d="M7 4h4v16H7zM14 4h4v16h-4z" fill="currentColor"/></svg><span data-r-play-label>Play</span></button>
+      <button type="button" class="key round" data-r-next aria-label="Newer episode"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="transport">
+      <button type="button" class="key" data-r-back aria-label="−15 seconds">−15</button>
+      <button type="button" class="key" data-r-fwd aria-label="+30 seconds">+30</button>
+      <a class="key" data-r-page href={u('/podcast/' + latest.slug)}>Show notes</a>
+    </div>
+    <a class="key spot" href={site.podcast.spotify} rel="noopener">Save on Spotify</a>
+  </div>
+  <p class="no-js-only" style="flex:1 1 220px"><a class="key play" href={u('/podcast/' + latest.slug)}>Open the latest episode</a></p>
+  <audio preload="none"></audio>
+</div>
