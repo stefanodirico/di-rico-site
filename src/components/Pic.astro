@@ -1,0 +1,22 @@
+---
+// One place for every photo: AVIF and WebP at sensible sizes, alt text from content/photos.json.
+// Sharp drops EXIF (including any location data) when it re-encodes.
+import { Picture } from 'astro:assets';
+import { photo } from '../lib/site';
+interface Props { name: string; widths?: number[]; sizes?: string; eager?: boolean; class?: string; alt?: string }
+const { name, widths = [320, 480, 720, 960], sizes = '(max-width: 860px) 90vw, 480px', eager = false, class: cls, alt } = Astro.props;
+const p = photo(name);
+const w = widths.filter((x) => x <= p.src.width);
+---
+<Picture
+  src={p.src}
+  alt={alt ?? p.alt}
+  formats={['avif', 'webp']}
+  fallbackFormat={name.endsWith('.png') ? 'png' : 'jpg'}
+  widths={w.length ? w : [p.src.width]}
+  sizes={sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  decoding={eager ? 'sync' : 'async'}
+  class={cls}
+/>

@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, ladder, getProjects, u, mail } from '../lib/site';
+import { crumbs, PERSON_ID } from '../lib/schema';
+const projects = getProjects();
+const title = (slug: string) => projects.find((p) => p.slug === slug)?.title ?? slug;
+const profile = { '@type': 'ProfilePage', '@id': 'https://di-rico.com/experience-ladder/#profile', mainEntity: { '@id': PERSON_ID }, name: 'My Experience Ladder: Stefano Di Rico' };
+const groups = [
+  ['Experience', ladder.filter((r) => !['Education', 'Award'].includes(r.kind))],
+  ['Education', ladder.filter((r) => r.kind === 'Education')],
+  ['Awards', ladder.filter((r) => r.kind === 'Award')],
+] as const;
+---
+<Base
+  title="My Experience Ladder | Stefano Di Rico's CV"
+  description="Stefano Di Rico's experience, rung by rung: The Child Lens, Creating Your Ladder, Chirpy Mood Science, YoungMinds, My Life My Say, Warwick and more."
+  path="/experience-ladder/" og="experience-ladder" current="/experience-ladder" schema={[profile, crumbs([['Home', '/'], ['My Experience Ladder', '/experience-ladder/']])]}>
+  <div class="wrap" style="padding-bottom:72px">
+    <nav class="crumb noprint" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / My Experience Ladder</nav>
+    <header class="page-hero noprint">
+      <div>
+        <p class="eyebrow">Instead of a CV</p>
+        <h1>My Experience <span class="ladder-word">Ladder</span></h1>
+        <p class="lead">Everything I have done, rung by rung, with the newest at the top. Careers are not one straight climb, so this is the ladder I built for myself.</p>
+        <div class="row js-only" style="margin-top:18px;gap:12px">
+          <div class="switch" data-view-switch role="group" aria-label="Choose a view">
+            <button type="button" data-view="ladder" aria-pressed="true">Ladder</button>
+            <button type="button" data-view="plain" aria-pressed="false">Plain list</button>
+          </div>
+          <button type="button" class="ghost" data-print>Print or save as PDF</button>
+        </div>
+      </div>
+    </header>
+
+    <ol class="vladder ladder-view">
+      {ladder.map((r, i) => (
+        <li class="vrow" id={r.id}>
+          <div class="mid" aria-hidden="true"><span class="yr">{r.year}</span><span class="rung"></span></div>
+          <article class={'rc' + (r.highlight ? ' hl-card' : '')} style={`--r:${[-0.6, 0.6, -0.3, 0.4][i % 4]}deg`}>
+            <span class="tape" aria-hidden="true"></span>
+            <span class="k">{r.kind}</span>
+            <h2>{r.title}</h2>
+            <span class="o">{r.org}</span>
+            <span class="d">{r.when}</span>
+            {r.what && <p class="w">{r.what}</p>}
+            {(r.projects || r.link) && (
+              <p class="links">
+                {(r.projects || []).map((s: string) => <a href={u('/work/' + s)}>{title(s)}</a>)}
+                {r.link && <a href={u(r.link)}>{r.linkLabel}</a>}
+              </p>
+            )}
+          </article>
+        </li>
+      ))}
+    </ol>
+
+    <section class="paper plain-view" aria-label="Plain list">
+      <p class="serif" style="font-weight:700;font-size:2rem;line-height:1.1">{site.name} {site.honorific}</p>
+      <p style="margin-top:6px">{site.role}. {site.email} · di-rico.com</p>
+      <p style="margin-top:12px;color:var(--ink)">{site.bios.short}</p>
+      {groups.map(([name, items]) => (
+        <>
+          <h2>{name}</h2>
+          {items.map((r) => (
+            <div class="pi"><span><b>{r.title}</b>, {r.org}</span><span class="when">{r.when}</span>{r.what && <p>{r.what}</p>}</div>
+          ))}
+        </>
+      ))}
+      <h2>Fellowships and training</h2>
+      <ul class="inside" style="font-size:.9375rem">{site.fellowships.map((f: string) => <li>{f}</li>)}</ul>
+      <h2>Languages</h2>
+      <ul class="inside" style="font-size:.9375rem">{site.languages.map((f: string) => <li>{f}</li>)}</ul>
+    </section>
+
+    <section class="notes noprint" style="margin-top:56px">
+      <div class="note" style="--r:-1deg">
+        <span class="tape" aria-hidden="true"></span>
+        <h2>Fellowships and languages</h2>
+        <ul class="inside" style="font-size:1rem">{[...site.fellowships, ...site.languages].map((f: string) => <li>{f}</li>)}</ul>
+      </div>
+      <div class="note blue" style="--r:1deg">
+        <span class="tape" style="background:rgba(255,255,255,.9)" aria-hidden="true"></span>
+        <h2>Want the next rung to be yours?</h2>
+        <p>I am open to speaking invitations, consulting projects and conversations about youth policy.</p>
+        <p class="row"><a class="btn" href={mail('general')}>Get in touch</a><a class="lnk" href={u('/work')}>See the work</a></p>
+      </div>
+    </section>
+  </div>
+</Base>

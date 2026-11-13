@@ -1,0 +1,32 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site, u } from '../lib/site';
+const a = site.analytics?.provider && site.analytics?.id ? site.analytics.provider : '';
+---
+<Legal title="Cookie policy | Stefano Di Rico" h1="Cookie policy" path="/cookies/" updated="13 November 2026"
+  description="The cookies and similar storage di-rico.com uses: nothing optional is set without your permission, and you can change your choice at any time.">
+  <h2>The short version</h2>
+  <p>This site works without cookies. Nothing optional is stored on your device, and no third-party player is loaded, unless you say yes. Rejecting is as easy as accepting, and the site works the same either way.</p>
+  <p class="js-only"><button type="button" class="btn" data-consent-open>Change my cookie settings</button></p>
+
+  <h2>What we use</h2>
+  <h3>Necessary</h3>
+  <ul>
+    <li><b>sdr-consent</b> (local storage, set by di-rico.com): remembers your cookie choice so we do not ask again. Stored only after you make a choice, and kept until you clear it. It holds no personal data.</li>
+  </ul>
+  <h3>Embedded media (off until you allow it)</h3>
+  <ul>
+    <li><b>Spotify player</b> (open.spotify.com): if allowed, Spotify sets cookies such as <code>sp_t</code> and <code>sp_landing</code> to run the player and measure listening. See <a href="https://www.spotify.com/legal/cookies-policy/" rel="noopener">Spotify's cookie policy</a>.</li>
+    <li><b>YouTube player</b> (youtube-nocookie.com): used only on episode pages that have a video. If allowed, YouTube stores data on your device when you play the video. See <a href="https://policies.google.com/technologies/cookies" rel="noopener">Google's cookie information</a>.</li>
+  </ul>
+  <h3>Analytics</h3>
+  {a === 'goatcounter' && <p>We count visits with GoatCounter. It uses no cookies and no device storage, so it runs without a consent prompt. You can object by emailing {site.email}.</p>}
+  {a === 'ga4' && <ul><li><b>Google Analytics 4</b> (off until you allow it): sets <code>_ga</code> and <code>_ga_*</code> cookies for up to two years to tell visitors apart and count visits.</li></ul>}
+  {!a && <p>None. We do not use analytics cookies.</p>}
+  <h3>Advertising</h3>
+  <p>None. There are no advertising or social media tracking cookies on this site.</p>
+
+  <h2>Changing your mind</h2>
+  <p>Use “Cookie settings” in the footer of any page to change or withdraw your choice. You can also clear this site's data in your browser settings.</p>
+  <p>More about how we handle data is in the <a href={u('/privacy')}>privacy notice</a>.</p>
+</Legal>

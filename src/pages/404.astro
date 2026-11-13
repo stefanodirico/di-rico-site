@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/site';
+---
+<Base title="Page not found | Stefano Di Rico" description="That page is not on the shelf. Find Stefano Di Rico's work, podcast, speaking topics and press kit from the home page." path="/404/" noindex>
+  <div class="wrap" style="padding:72px 32px 96px">
+    <p class="eyebrow">Error 404</p>
+    <h1 class="name" style="max-width:none;font-size:clamp(2.6rem,7vw,5rem)">This rung is missing</h1>
+    <p class="lead" style="margin-top:20px;max-width:44ch">The page you were looking for has moved or never existed. Try one of these instead.</p>
+    <p class="row" style="margin-top:22px;gap:10px">
+      <a class="btn" href={u('/')}>Home</a>
+      <a class="ghost" href={u('/podcast')}>Podcast</a>
+      <a class="ghost" href={u('/work')}>Work</a>
+      <a class="ghost" href={u('/speaking')}>Speaking</a>
+      <a class="ghost" href={u('/media')}>Press kit</a>
+      <a class="ghost" href={u('/experience-ladder')}>Experience ladder</a>
+    </p>
+  </div>
+</Base>

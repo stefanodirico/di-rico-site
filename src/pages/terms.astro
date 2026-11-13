@@ -1,0 +1,21 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site, u } from '../lib/site';
+const c = site.company;
+---
+<Legal title="Terms of use | Stefano Di Rico" h1="Terms of use" path="/terms/" updated="13 November 2026"
+  description="Terms of use for di-rico.com, operated by SDR Enterprises Limited: who runs the site, how its content can be used, and the law that applies.">
+  <h2>Who runs this site</h2>
+  <p>di-rico.com is operated by {c.name}, registered in {c.registeredIn}, company number {c.number}, registered office {c.office}. Contact: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <h2>Using the content</h2>
+  <p>Unless stated otherwise, the text, design and podcast on this site belong to {c.name} or Stefano Di Rico. You are welcome to quote short passages with a link back. The bios and headshots in the <a href={u('/media')}>press kit</a> may be used for editorial coverage and event listings about Stefano. Please ask before any other use.</p>
+  <p>Some photographs belong to their photographers or to the organisations Stefano worked with, and are used with permission. They are not licensed for reuse.</p>
+  <h2>Accuracy</h2>
+  <p>We try to keep this site accurate and up to date. It is general information, not professional, medical or mental health advice. If you are struggling, please speak to someone you trust or your GP. In the UK you can contact Samaritans free on 116 123 at any time.</p>
+  <h2>Links</h2>
+  <p>We link to other websites for convenience and are not responsible for their content.</p>
+  <h2>Bookings</h2>
+  <p>Nothing on this site is an offer. Speaking and consulting work is agreed in writing with {c.name}.</p>
+  <h2>Law</h2>
+  <p>These terms are governed by the law of England and Wales.</p>
+</Legal>

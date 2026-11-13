@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import Pic from '../../components/Pic.astro';
+import Tape from '../../components/Tape.astro';
+import Listen from '../../components/Listen.astro';
+import { site, u, mail, ORIGIN } from '../../lib/site';
+import { getPodcast } from '../../lib/podcast';
+import { series, crumbs, PERSON_ID, SERIES_ID } from '../../lib/schema';
+
+const { show, episodes } = await getPodcast();
+const p = site.podcast;
+const list = {
+  '@type': 'ItemList', name: 'Creating Your Ladder episodes',
+  itemListElement: episodes.map((e, i) => ({ '@type': 'ListItem', position: i + 1, url: `${ORIGIN}/podcast/${e.slug}/`, name: `${e.guest}: ${e.headline}` })),
+};
+---
+<Base
+  title="Creating Your Ladder | Podcast with Stefano Di Rico"
+  description="Creating Your Ladder is a fortnightly podcast hosted by Stefano Di Rico, helping young people navigate careers, fulfilment and wellbeing. Listen to every episode."
+  path="/podcast/" og="podcast" current="/podcast"
+  schema={[series(show.image), list, crumbs([['Home', '/'], ['Podcast', '/podcast/']])]}>
+
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / Podcast</nav>
+    <header class="page-hero">
+      <div>
+        <p class="eyebrow">A podcast with Stefano Di Rico</p>
+        <h1 class="pod-title big">Creating Your <span class="ladder-word">Ladder</span></h1>
+        <p class="lead">{p.strapline} New episodes are released {p.frequency}.</p>
+        <p class="lead" style="font-size:1.0625rem">I talk to young people about how they found the work and activities that motivate them, so you can find yours. Trying lots of different things is how I worked out what fulfils me.</p>
+      </div>
+      <figure class="fig snap" style="--r:2deg;flex:1 1 300px;max-width:420px">
+        <Pic name="podcast-hero.jpg" widths={[420, 840]} sizes="(max-width: 860px) 90vw, 420px" eager />
+      </figure>
+    </header>
+
+    <section class="sheet" aria-label="Where to listen">
+      <Listen />
+    </section>
+
+    <section class="sec" aria-labelledby="eps-h">
+      <h2 class="sec-h" id="eps-h">Episodes</h2>
+      <p style="margin:6px 0 30px">{episodes.length} episodes so far, newest first. Each has its own page with show notes.</p>
+      <ul class="tapes grid-all">
+        {episodes.map((ep, i) => <Tape ep={ep} i={i} />)}
+      </ul>
+    </section>
+
+    <section class="sec" aria-labelledby="sp-h">
+      <h2 class="sec-h" id="sp-h">Play it here</h2>
+      <div class="embed" data-embed data-src={`https://open.spotify.com/embed/show/${p.spotifyShowId}`} data-title="Creating Your Ladder on Spotify" data-height="352" style="margin-top:18px">
+        <p class="ph">The Spotify player sets its own cookies, so it only loads if you allow embedded media.</p>
+        <p class="ph row"><button type="button" class="btn js-only" data-embed-allow>Allow and load the player</button><a class="ghost" href={p.spotify} rel="noopener">Open in Spotify instead</a></p>
+      </div>
+    </section>
+
+    <section class="sec two" style="padding-bottom:72px">
+      <div class="main">
+        <figure class="fig"><Pic name="podcast-bts.jpg" widths={[480, 720, 960]} sizes="(max-width: 860px) 90vw, 640px" /><figcaption>Behind the scenes of a recording.</figcaption></figure>
+      </div>
+      <aside>
+        <div class="panel blue">
+          <h2>Sponsor the show</h2>
+          <p>Bespoke packages are available, and my team and I would be happy to create something with you.</p>
+          <p><a class="lnk" href={mail('sponsorship')}>Enquire about sponsorship</a></p>
+        </div>
+        <div class="panel">
+          <h2>Suggest a guest</h2>
+          <p>Know a young person who built their own ladder? I would love to hear about them.</p>
+          <p><a class="lnk" href={mail('guest')}>Enquire about guesting</a></p>
+        </div>
+      </aside>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+import Tape from '../components/Tape.astro';
+import { site, ladder, speaking, media, getProjects, u, mail, photo } from '../lib/site';
+import { getPodcast } from '../lib/podcast';
+import { series } from '../lib/schema';
+
+const { show, episodes } = await getPodcast();
+const projects = getProjects();
+const latest = episodes[0];
+const books = [
+  { id: 'nb-work', label: 'Work', sub: 'Campaigns and projects', c1: '#162660', c2: '#d0e6fd' },
+  { id: 'nb-speaking', label: 'Speaking', sub: 'Talks and topics', c1: '#175392', c2: '#ffffff' },
+  { id: 'nb-media', label: 'Media', sub: 'Press and press kit', c1: '#7daee0', c2: '#162660' },
+  { id: 'nb-about', label: 'About', sub: 'Who I am', c1: '#0e1942', c2: '#7daee0' },
+];
+const tilts = [-2.5, 2, 1.5, -2];
+---
+<Base
+  title="Stefano Di Rico | Campaigner, speaker and podcast host"
+  description="Stefano Di Rico FRSA speaks and consults on young people's mental health, education and the route into work, and hosts the podcast Creating Your Ladder."
+  path="/" og="home" current="/" schema={[series(show.image)]}>
+
+  <section class="wrap hero" aria-labelledby="hi">
+    <div class="pass" id="pass">
+      <div class="strap" aria-hidden="true"></div>
+      <div class="clip" aria-hidden="true"></div>
+      <a class="card-pass" href={u('/about')}>
+        <Pic name="headshot-1.png" widths={[240, 480]} sizes="(max-width: 860px) 102px, 202px" eager />
+        <span class="k">Speaker pass</span>
+        <span class="pt">Stefano Di Rico</span>
+        <span class="ps">{site.passLine}</span>
+      </a>
+      <button type="button" class="swing js-only">give it a swing</button>
+    </div>
+    <p class="eyebrow">Hello, I'm</p>
+    <h1 class="name" id="hi">Stefano Di Rico</h1>
+    <p class="lead">{site.tagline}</p>
+    <p class="hero-facts">Award-winning campaigner, former YoungMinds Activist and Fellow of the Royal Society of Arts. In February 2024 I co-authored a letter, signed by more than 15,000 people, and delivered it to 10 Downing Street.</p>
+    <p class="row" style="margin-top:22px;gap:14px 22px">
+      <a class="btn" href={mail('booking')}>Book me to speak</a>
+      <a class="circled" href="#podcast">Listen to the podcast</a>
+    </p>
+  </section>
+
+  <section class="wrap sec" id="podcast" aria-labelledby="pod-h">
+    <p class="eyebrow">On air, {site.podcast.frequency}</p>
+    <h2 class="pod-title" id="pod-h"><a href={u('/podcast')}>Creating Your <span class="ladder-word">Ladder</span></a></h2>
+    <p class="lead" style="max-width:52ch;margin:10px 0 26px">{site.podcast.strapline} Each guest is a tape: press play, or open one for the show notes.</p>
+
+    <div class="deck" data-recorder>
+      <div class="screen" aria-live="off">
+        <p class="top"><span data-r-no>EP {String(latest.number).padStart(2, '0')}</span><span class="st" data-r-state>READY</span></p>
+        <p class="g" data-r-guest>{latest.guest}</p>
+        <p class="q" data-r-line>{latest.line}</p>
+        <div class="bars" aria-hidden="true">{Array.from({ length: 48 }, (_, k) => <span style={`height:${28 + ((k * 37) % 61)}%`}></span>)}</div>
+        <p class="time"><span data-r-now>0:00</span><span data-r-total>{latest.duration.replace(/^0/, '')}</span></p>
+      </div>
+      <div class="keys js-only">
+        <button type="button" class="key" data-r-prev aria-label="Older episode">Older</button>
+        <button type="button" class="key" data-r-back aria-label="Back 15 seconds">−15</button>
+        <button type="button" class="key play" data-r-play aria-pressed="false">Play</button>
+        <button type="button" class="key" data-r-fwd aria-label="Forward 30 seconds">+30</button>
+        <button type="button" class="key" data-r-next aria-label="Newer episode">Newer</button>
+        <a class="key" data-r-page href={u('/podcast/' + latest.slug)}>Show notes</a>
+      </div>
+      <p class="no-js-only" style="flex:1 1 220px"><a class="key play" href={u('/podcast/' + latest.slug)}>Open the latest episode</a></p>
+      <audio preload="none"></audio>
+    </div>
+
+    <ul class="tapes" style="margin-top:44px">
+      {episodes.map((ep, i) => <Tape ep={ep} i={i} player />)}
+    </ul>
+    <p class="row" style="margin-top:28px;gap:8px 20px">
+      <a class="lnk" href={u('/podcast')}>All episodes and show notes</a>
+      <a class="lnk" href={site.podcast.spotify} rel="noopener">Spotify</a>
+      <a class="lnk" href={site.podcast.apple} rel="noopener">Apple Podcasts</a>
+      <a class="lnk" href={site.podcast.youtube} rel="noopener">YouTube</a>
+    </p>
+  </section>
+
+  <section class="wrap sec" id="work" aria-labelledby="shelf-h">
+    <p class="eyebrow">The rest of my work</p>
+    <h2 class="sec-h" id="shelf-h">Pick a notebook</h2>
+    <nav class="shelf" data-shelf aria-label="Notebooks">
+      {books.map((b, i) => (
+        <a class="nb" href={'#' + b.id} style={`--c1:${b.c1};--c2:${b.c2}`}>
+          <span class="spine"></span><span class="stripe"></span>
+          <span class="lbl"><b>{b.label}</b><span>{b.sub}</span></span>
+          <span class="no">No. {i + 1}</span>
+        </a>
+      ))}
+      <a class="lean" href="#ladder" aria-label="My Experience Ladder">
+        <span class="rl" style="left:0"></span><span class="rl" style="right:0"></span>
+        {[8, 22, 54, 68, 82].map((t) => <span class="rr" style={`top:${t}%`}></span>)}
+        <span class="tag">My Experience<br>Ladder</span>
+      </a>
+    </nav>
+    <div class="board" aria-hidden="true"></div>
+
+    <article class="book" id="nb-work" style="--c1:#162660">
+      <div class="lp reveal">
+        <p class="no">No. 1</p>
+        <h2>Work</h2>
+        <p class="intro">Campaigns I have helped to lead and projects I have built. Pick a photo for the short version, or read the full story.</p>
+        <ul class="inside">
+          {projects.map((p) => <li><a href={u('/work/' + p.slug)}>{p.title}</a> <span class="dim">({p.when})</span></li>)}
+        </ul>
+        <div class="postit" id="postit" data-postit hidden aria-live="polite">
+          <p class="w"></p><p class="t"></p><p class="s"></p><p class="s o" style="font-weight:600"></p>
+          <a class="lnk" href={u('/work')}>Read the full story</a>
+        </div>
+        <p style="margin-top:18px"><a class="lnk" href={u('/work')}>See all work</a></p>
+      </div>
+      <div class="rp reveal">
+        <div class="pols" data-pols>
+          {projects.map((p, i) => (
+            <a class="pol" href={u('/work/' + p.slug)} style={`--r:${tilts[i % 4]}deg;--k:${i}`}
+               data-title={p.title} data-when={`${p.when}, with ${p.with}`} data-summary={p.summary} data-outcome={p.outcome}>
+              <span class="pin" aria-hidden="true"></span>
+              {p.photo && <Pic name={p.photo} widths={[320, 480, 640]} sizes="(max-width: 860px) 80vw, 240px" />}
+              <span class="pt">{p.polaroid}</span>
+            </a>
+          ))}
+        </div>
+        <div class="pile-ctl"><span class="hand" data-pile-count style="font-size:1.25rem"></span><button type="button" class="ghost" data-pile-next>Next photo</button></div>
+      </div>
+      <div class="cover" aria-hidden="true"><div class="face"><span>Work</span></div></div>
+    </article>
+
+    <article class="book" id="nb-speaking" style="--c1:#175392">
+      <div class="lp reveal">
+        <p class="no">No. 2</p>
+        <h2>Speaking</h2>
+        <p class="intro">{speaking.intro}</p>
+        <ul class="inside">{speaking.topics.map((t: any) => <li>{t.title}</li>)}</ul>
+      </div>
+      <div class="rp reveal">
+        <figure class="fig snap" style="--r:1.5deg;max-width:380px"><Pic name="cmc-speaking.jpg" widths={[380, 760]} sizes="(max-width: 860px) 80vw, 380px" /><figcaption>{photo('cmc-speaking.jpg').caption}</figcaption></figure>
+        <p style="margin-top:20px">{site.feeLine}</p>
+        <p class="row" style="margin-top:12px"><a class="btn" href={mail('booking')}>Book me to speak</a><a class="lnk" href={u('/speaking')}>Topics and past talks</a></p>
+      </div>
+      <div class="cover" aria-hidden="true"><div class="face"><span>Speaking</span></div></div>
+    </article>
+
+    <article class="book" id="nb-media" style="--c1:#7daee0">
+      <div class="lp reveal">
+        <p class="no">No. 3</p>
+        <h2>Media</h2>
+        <p class="intro">{media.intro}</p>
+        <p style="font-weight:600;margin-bottom:6px">I can comment on:</p>
+        <ul class="inside">{media.commentTopics.map((t: string) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="rp reveal">
+        <figure class="fig snap" style="--r:-1.5deg;max-width:260px"><Pic name="earth-minutes-interview.jpg" widths={[260, 520]} sizes="260px" /><figcaption>{photo('earth-minutes-interview.jpg').caption}</figcaption></figure>
+        <p class="row" style="margin-top:20px"><a class="btn" href={mail('press')}>Request comment</a><a class="lnk" href={u('/media')}>Press kit: bios and headshots</a></p>
+      </div>
+      <div class="cover" aria-hidden="true"><div class="face"><span>Media</span></div></div>
+    </article>
+
+    <article class="book" id="nb-about" style="--c1:#0e1942">
+      <div class="lp reveal">
+        <p class="no">No. 4</p>
+        <h2>About</h2>
+        <p class="intro">{site.bios.medium}</p>
+        <p><a class="lnk" href={u('/about')}>More about me</a></p>
+      </div>
+      <div class="rp reveal">
+        <figure class="fig snap" style="--r:1deg"><Pic name="about-landscape.jpg" widths={[480, 720, 960]} sizes="(max-width: 860px) 80vw, 480px" /></figure>
+        <p class="row" style="margin-top:20px;gap:0 20px">
+          <a class="lnk" href={site.social.linkedin} rel="noopener">LinkedIn</a>
+          <a class="lnk" href={site.social.instagram} rel="noopener">Instagram</a>
+          <a class="lnk" href={site.social.substack} rel="noopener">Substack</a>
+        </p>
+      </div>
+      <div class="cover" aria-hidden="true"><div class="face"><span>About</span></div></div>
+    </article>
+  </section>
+
+  <section class="wrap sec" id="ladder" aria-labelledby="ladder-h">
+    <p class="eyebrow">Instead of a CV</p>
+    <h2 class="sec-h" id="ladder-h"><a href={u('/experience-ladder')}>My Experience <span class="ladder-word">Ladder</span></a></h2>
+    <p class="lead" style="max-width:54ch;margin:10px 0 22px">Every rung is something I have done, newest first. Pick one to see it on the full ladder.</p>
+    <div class="hl-wrap" tabindex="0" role="region" aria-label="Experience ladder, scrolls sideways">
+      <ol class="hl">
+        {ladder.map((r, i) => (
+          <li style={`--i:${i}`}>
+            <a class="step" href={u('/experience-ladder#' + r.id)}>
+              <span class="y">{r.year}</span><span class="rg"></span>
+              <span class="lab">{r.short}</span><span class="org">{r.org}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <p style="margin-top:14px"><a class="lnk" href={u('/experience-ladder')}>Open the full ladder</a></p>
+  </section>
+
+  <section class="wrap sec" aria-label="Get in touch" style="padding-bottom:72px">
+    <div class="notes">
+      <div class="note" style="--r:-1deg">
+        <span class="tape" aria-hidden="true"></span>
+        <h2>Book me to speak</h2>
+        <p>Keynotes, panels and workshops on young people's mental health, education and the route into work, for graduates, schools, employers and policy audiences.</p>
+        <p>{site.feeLine}</p>
+        <a class="btn" href={mail('booking')}>Email about a booking</a>
+      </div>
+      <div class="note blue" style="--r:1deg">
+        <span class="tape" style="background:rgba(255,255,255,.9)" aria-hidden="true"></span>
+        <h2>Journalists</h2>
+        <p>Comment on youth mental health, exams, education and careers. Bios, headshots and a suggested introduction are in the press kit.</p>
+        <p class="row"><a class="btn" href={mail('press')}>Request comment</a><a class="lnk" href={u('/media')}>Open the press kit</a></p>
+      </div>
+    </div>
+  </section>
+</Base>

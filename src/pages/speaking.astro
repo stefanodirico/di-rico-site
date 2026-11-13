@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+import { site, speaking, photo, u, mail } from '../lib/site';
+import { crumbs, faqPage, pastEvents } from '../lib/schema';
+const shots = ['cmc-panel-alex-holmes.jpg', 'panel-microphone.jpg', 'cmc-panel.jpg'];
+---
+<Base
+  title="Book Stefano Di Rico to speak | Youth mental health and careers"
+  description="Book Stefano Di Rico for keynotes, panels and workshops on young people's mental health, education, early careers, graduates and policy. Email about availability."
+  path="/speaking/" og="speaking" current="/speaking"
+  schema={[faqPage(), ...pastEvents(), crumbs([['Home', '/'], ['Speaking', '/speaking/']])]}>
+  <div class="wrap" style="padding-bottom:72px">
+    <nav class="crumb" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / Speaking</nav>
+    <header class="page-hero">
+      <div>
+        <p class="eyebrow">Notebook no. 2</p>
+        <h1>Speaking</h1>
+        <p class="lead">{speaking.intro}</p>
+        <p style="margin-top:14px">{site.feeLine}</p>
+        <p class="row" style="margin-top:14px"><a class="btn" href={mail('booking')}>Book me to speak</a><a class="lnk" href={u('/media')}>Bio and headshots for your programme</a></p>
+      </div>
+      <figure class="fig snap" style="--r:2deg;flex:1 1 300px;max-width:440px">
+        <Pic name="cmc-speaking.jpg" widths={[440, 880]} sizes="(max-width: 860px) 90vw, 440px" eager />
+        <figcaption>{photo('cmc-speaking.jpg').caption}</figcaption>
+      </figure>
+    </header>
+
+    <section class="sec" aria-labelledby="t-h" style="padding-top:8px">
+      <h2 class="sec-h" id="t-h">What I speak about</h2>
+      <ul class="topics" style="margin-top:28px">
+        {speaking.topics.map((t: any, i: number) => (
+          <li class="card" style={`--r:${[-1, 0.5, 1, -0.5][i % 4]}deg`}>
+            <h3 class="ct">{t.title}</h3>
+            <p class="cl">{t.summary}</p>
+            <p class="kind" style="margin-top:6px">For: {t.for}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="sec two">
+      <div class="main">
+        <h2 class="sec-h">On stage</h2>
+        <div class="gallery" style="margin-top:24px">
+          {shots.map((g, i) => <figure class="fig snap" style={`--r:${[1, -1.5, 0.5][i]}deg`}><Pic name={g} widths={[320, 480, 640]} sizes="(max-width: 860px) 90vw, 300px" /><figcaption>{photo(g).caption}</figcaption></figure>)}
+        </div>
+      </div>
+      <aside>
+        <div class="panel blue">
+          <h2>Formats</h2>
+          <ul>{speaking.formats.map((f: string) => <li>{f}</li>)}</ul>
+        </div>
+        <div class="panel">
+          <h2>Where I have spoken</h2>
+          <ul>{speaking.past.map((e: any) => <li><b>{e.name}</b>, {e.role.toLowerCase()}</li>)}</ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="sec sheet faq" aria-labelledby="faq-h">
+      <h2 class="sec-h" id="faq-h" style="margin-bottom:14px">Questions organisers ask</h2>
+      {speaking.faq.map((f: any) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </section>
+
+    <section class="notes" style="margin-top:56px">
+      <div class="note blue" style="--r:-1deg">
+        <span class="tape" style="background:rgba(255,255,255,.9)" aria-hidden="true"></span>
+        <h2>Planning an event?</h2>
+        <p>Tell me the date, the audience and what you would like me to cover. {site.feeLine}</p>
+        <a class="btn" href={mail('booking')}>Email about a booking</a>
+      </div>
+    </section>
+  </div>
+</Base>

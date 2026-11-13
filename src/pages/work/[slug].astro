@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import Pic from '../../components/Pic.astro';
+import { getProjects, rungById, photo, u, mail, ORIGIN } from '../../lib/site';
+import { crumbs, PERSON_ID } from '../../lib/schema';
+
+export function getStaticPaths() {
+  const all = getProjects();
+  return all.map((p, i) => ({ params: { slug: p.slug }, props: { p, next: all[(i + 1) % all.length] } }));
+}
+const { p, next } = Astro.props;
+const r = rungById(p.rung);
+const path = `/work/${p.slug}/`;
+const article = {
+  '@type': 'Article', '@id': ORIGIN + path + '#article', headline: p.title, description: p.description, url: ORIGIN + path,
+  author: { '@id': PERSON_ID }, about: { '@id': PERSON_ID }, inLanguage: 'en-GB',
+};
+---
+<Base title={`${p.title} | Stefano Di Rico`} description={p.description} path={path} og={'work-' + p.slug} current="/work" ogType="article"
+  schema={[article, crumbs([['Home', '/'], ['Work', '/work/'], [p.title, path]])]}>
+  <div class="wrap" style="padding-bottom:72px">
+    <nav class="crumb" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / <a href={u('/work')}>Work</a> / {p.polaroid}</nav>
+    <header class="page-hero">
+      <div>
+        <p class="eyebrow">{p.kind} with {p.with}</p>
+        <h1>{p.title}</h1>
+        <p class="lead">{p.summary}</p>
+      </div>
+      <dl class="tag">
+        {p.when && <><dt>When</dt><dd>{p.when}</dd></>}
+        {p.role && <><dt>My role</dt><dd>{p.role}</dd></>}
+        {p.how && <><dt>How</dt><dd>{p.how}</dd></>}
+        {p.outcome && <><dt>Outcome</dt><dd>{p.outcome}</dd></>}
+      </dl>
+    </header>
+
+    <div class="two">
+      <div class="main">
+        {p.photo && <figure class="fig" style="margin-bottom:32px"><Pic name={p.photo} widths={[480, 720, 960, 1280]} sizes="(max-width: 860px) 92vw, 720px" eager />{photo(p.photo).caption && <figcaption>{photo(p.photo).caption}</figcaption>}</figure>}
+        <article class="sheet prose"><Fragment set:html={p.html} /></article>
+        {p.gallery.length > 0 && (
+          <div class="gallery" style="margin-top:36px">
+            {p.gallery.map((g, i) => <figure class="fig snap" style={`--r:${[1, -1.5, 0.5][i % 3]}deg`}><Pic name={g} widths={[320, 480, 640]} sizes="(max-width: 860px) 90vw, 300px" /><figcaption>{photo(g).caption}</figcaption></figure>)}
+          </div>
+        )}
+      </div>
+      <aside>
+        {r && (
+          <div class="panel blue">
+            <h2>On the ladder</h2>
+            <p>This was part of my time as {r.title} at {r.org} ({r.when}).</p>
+            <p><a class="rb lnk" href={u('/experience-ladder#' + r.id)}><span class="mini" aria-hidden="true"></span>See this rung</a></p>
+          </div>
+        )}
+        {p.sources.length > 0 && (
+          <div class="panel">
+            <h2>Sources</h2>
+            <ul>{p.sources.map((s) => <li><a href={s.url} rel="noopener">{s.label}</a></li>)}</ul>
+          </div>
+        )}
+        <div class="panel">
+          <h2>Talk about this</h2>
+          <p>I speak about this work at events, and can comment for the media.</p>
+          <p class="row" style="gap:0 18px"><a class="lnk" href={mail('booking')}>Book me to speak</a><a class="lnk" href={mail('press')}>Request comment</a></p>
+        </div>
+        <p><a class="lnk" href={u('/work/' + next.slug)}>Next: {next.title}</a></p>
+      </aside>
+    </div>
+  </div>
+</Base>

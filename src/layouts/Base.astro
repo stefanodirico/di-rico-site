@@ -1,0 +1,115 @@
+---
+import '@fontsource/literata/latin-400.css';
+import '@fontsource/literata/latin-700.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/caveat/latin-600.css';
+import '@fontsource/archivo/latin-800.css';
+import '@fontsource/dotgothic16/latin-400.css';
+import '../styles/global.css';
+import heroFont from '@fontsource/literata/files/literata-latin-700-normal.woff2?url';
+import bodyFont from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
+import { site, u, mail, LIVE, ORIGIN } from '../lib/site';
+import { person, organization, website } from '../lib/schema';
+
+interface Props { title: string; description: string; path: string; og?: string; schema?: any[]; current?: string; noindex?: boolean; ogType?: string }
+const { title, description, path, og = 'home', schema = [], current = '', noindex = false, ogType = 'website' } = Astro.props;
+const canonical = ORIGIN + path;
+const ogImage = ORIGIN + `/og/${og}.png`;
+const graph = { '@context': 'https://schema.org', '@graph': [person, organization, website, ...schema] };
+const nav = [
+  ['Work', '/work'], ['Podcast', '/podcast'], ['Speaking', '/speaking'], ['Media', '/media'],
+  ['Experience ladder', '/experience-ladder'], ['About', '/about'],
+];
+const analytics = site.analytics?.provider && site.analytics?.id ? site.analytics : null;
+---
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+{(!LIVE || noindex) && <meta name="robots" content="noindex, nofollow">}
+<meta name="author" content={site.name}>
+<meta name="theme-color" content="#162660">
+<link rel="icon" href={u('/favicon.svg')} type="image/svg+xml">
+<link rel="icon" href={u('/favicon-32.png')} sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href={u('/apple-touch-icon.png')}>
+<link rel="preload" href={heroFont} as="font" type="font/woff2" crossorigin>
+<link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin>
+<link rel="alternate" type="application/rss+xml" title="Creating Your Ladder (podcast RSS)" href={site.podcast.rss}>
+<meta property="og:type" content={ogType}>
+<meta property="og:site_name" content={site.name}>
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={title}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImage}>
+<script is:inline>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />
+</head>
+<body data-analytics={analytics ? analytics.provider : ''} data-analytics-id={analytics ? analytics.id : ''}>
+<a class="skip" href="#main">Skip to content</a>
+{!LIVE && <p class="preview-bar">Preview build. Not yet live at di-rico.com, and hidden from search engines.</p>}
+<header class="site-h">
+  <div class="wrap hdr">
+    <a class="brand" href={u('/')}>Stefano Di Rico</a>
+    <nav aria-label="Main" class="desk">
+      {nav.map(([l, p]) => <a href={u(p)} aria-current={current === p ? 'page' : undefined}>{l}</a>)}
+      <a class="btn" href={mail('booking')}>Book me to speak</a>
+    </nav>
+    <div class="mob">
+      <a class="btn" href={mail('booking')}>Book me</a>
+      <details class="menu"><summary>Menu</summary>
+        <nav aria-label="Main menu">{nav.map(([l, p]) => <a href={u(p)} aria-current={current === p ? 'page' : undefined}>{l}</a>)}</nav>
+      </details>
+    </div>
+  </div>
+</header>
+<main id="main"><slot /></main>
+<footer class="site-f">
+  <div class="wrap">
+    <nav aria-label="Footer">
+      <a href={site.social.linkedin} rel="me noopener">LinkedIn</a>
+      <a href={site.social.instagram} rel="me noopener">Instagram</a>
+      <a href={site.social.substack} rel="me noopener">Substack</a>
+      <a href={u('/experience-ladder')}>Experience ladder</a>
+      <a href={u('/media')}>Press kit</a>
+      <a href={u('/privacy')}>Privacy</a>
+      <a href={u('/cookies')}>Cookies</a>
+      <a href={u('/terms')}>Terms</a>
+      <a href={u('/accessibility')}>Accessibility</a>
+      <button type="button" class="js-only" data-consent-open>Cookie settings</button>
+    </nav>
+    <p class="legal">© {new Date().getFullYear()} {site.company.name}, registered in {site.company.registeredIn}, company number {site.company.number}. Registered office: {site.company.office}.</p>
+  </div>
+</footer>
+<div class="consent" data-consent hidden role="dialog" aria-labelledby="consent-h" aria-describedby="consent-p">
+  <h2 id="consent-h">Cookies on this site</h2>
+  <p id="consent-p">This site works without cookies. With your permission it can also load embedded players from Spotify and YouTube{analytics && analytics.provider === 'ga4' ? ', and use analytics cookies to count visits' : ''}, which set their own cookies. <a href={u('/cookies')}>Read the cookie policy</a>.</p>
+  <fieldset data-consent-choices hidden>
+    <legend class="sr">Choose which cookies to allow</legend>
+    <label><input type="checkbox" checked disabled> <span><b>Necessary.</b> Remembers this choice on your device. Always on.</span></label>
+    <label><input type="checkbox" data-consent-box="media"> <span><b>Embedded media.</b> Spotify and YouTube players.</span></label>
+    {analytics && analytics.provider === 'ga4' && <label><input type="checkbox" data-consent-box="analytics"> <span><b>Analytics.</b> Google Analytics, to count visits.</span></label>}
+  </fieldset>
+  <div class="acts">
+    <button type="button" class="btn" data-consent-set="all">Accept all</button>
+    <button type="button" class="btn" data-consent-set="none">Reject all</button>
+    <button type="button" class="ghost" data-consent-more>Choose</button>
+    <button type="button" class="ghost" data-consent-save hidden>Save choices</button>
+  </div>
+</div>
+<script>import '../scripts/site.js';</script>
+</body>
+</html>

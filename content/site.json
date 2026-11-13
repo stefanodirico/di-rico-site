@@ -1,0 +1,90 @@
+{
+  "name": "Stefano Di Rico",
+  "honorific": "FRSA",
+  "role": "Campaigner, speaker and podcast host",
+  "tagline": "I campaign, speak and consult on young people's mental health, education and the route into work, and host the podcast Creating Your Ladder.",
+  "passLine": "Youth mental health, education and pre-careers",
+  "email": "hello@di-rico.com",
+  "mailSubjects": {
+    "booking": "Speaking enquiry",
+    "press": "Media request",
+    "sponsorship": "Podcast sponsorship",
+    "guest": "Podcast guest",
+    "general": "Getting in touch"
+  },
+  "feeLine": "Get in touch about availability and fees.",
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/stefanodirico",
+    "instagram": "https://www.instagram.com/dirico_stefano",
+    "substack": "https://substack.com/@diricostefano",
+    "tiktok": "https://www.tiktok.com/@stefanodirico"
+  },
+  "podcast": {
+    "title": "Creating Your Ladder",
+    "strapline": "A podcast helping young people navigate careers, fulfilment and wellbeing.",
+    "frequency": "fortnightly",
+    "rss": "https://anchor.fm/s/1191246ec/podcast/rss",
+    "spotify": "https://open.spotify.com/show/3NHkLb4cH0xERD2WJqv2sl",
+    "spotifyShowId": "3NHkLb4cH0xERD2WJqv2sl",
+    "apple": "https://podcasts.apple.com/us/podcast/creating-your-ladder/id6826928112",
+    "youtube": "https://www.youtube.com/@CreatingYourLadder",
+    "instagram": "https://www.instagram.com/creatingyourladder",
+    "tiktok": "https://www.tiktok.com/@stefanodirico",
+    "linkedin": "https://www.linkedin.com/in/stefanodirico",
+    "substack": "https://creatingyourladder.substack.com/"
+  },
+  "company": {
+    "name": "SDR Enterprises Limited",
+    "number": "17324573",
+    "registeredIn": "England and Wales",
+    "office": "124 City Road, London, United Kingdom, EC1V 2NX"
+  },
+  "analytics": {
+    "provider": "",
+    "id": "",
+    "_help": "Leave both empty for no analytics. provider can be 'goatcounter' (id = your GoatCounter code, cookieless, no consent needed) or 'ga4' (id = G-XXXXXXX, loads only after a visitor accepts analytics cookies)."
+  },
+  "bios": {
+    "short": "Stefano Di Rico FRSA is an award-winning campaigner, speaker and consultant on young people's mental health, education and the route into work. A former YoungMinds Activist, he co-authored a letter to Downing Street signed by more than 15,000 people. He hosts the podcast Creating Your Ladder and studies at Warwick.",
+    "medium": "Stefano Di Rico FRSA is an award-winning campaigner, speaker and consultant on young people's mental health, education and pre-career development. He campaigned with YoungMinds and My Life My Say, and in February 2024 co-authored a letter, signed by more than 15,000 people, that he delivered to 10 Downing Street. He has contributed to stories for the BBC, Sky News and The Times, and received the NexGen Wellbeing Award for Services to Mental Health in 2023. Stefano hosts Creating Your Ladder, a podcast helping young people navigate careers, fulfilment and wellbeing. He studies Politics, International Studies and Hispanic Studies at Warwick.",
+    "long": [
+      "Stefano Di Rico FRSA is an award-winning campaigner, speaker and consultant working on young people's mental health, education and pre-career development.",
+      "Having struggled with his own mental health since the age of seven, Stefano realised at 15 how many of his friends were coming to him for guidance about theirs, and how systemic the problem was. He went on to campaign nationally with YoungMinds and My Life My Say, pushing for earlier access to mental health support and for policymakers to engage properly with the young people their decisions affect. In February 2024 he co-authored and hand-delivered an open letter, signed by more than 15,000 people, to 10 Downing Street as part of the Fund the Hubs campaign, and he campaigned for Votes at 16. He received the NexGen Wellbeing Award for Services to Mental Health in 2023.",
+      "His work now looks at the root causes of the mental health emergency: what happens in education, and how young people are prepared to build fulfilling careers. He hosts Creating Your Ladder, a fortnightly podcast helping young people navigate careers, fulfilment and wellbeing.",
+      "Stefano has spoken at the London Assembly, the British Library and the Children's Media Conference, and has contributed to stories for the BBC, Sky News and The Times. He is a Fellow of the Royal Society of Arts, an Aspen Institute UK Rising Leader, and is reading Politics, International Studies and Hispanic Studies at the University of Warwick, with a placement year in paediatric health at The Child Lens."
+    ],
+    "intro": "Please welcome Stefano Di Rico: an award-winning campaigner on young people's mental health, host of the podcast Creating Your Ladder and a Fellow of the Royal Society of Arts."
+  },
+  "facts": [
+    "Campaigned nationally as a YoungMinds Activist from October 2022 to October 2025.",
+    "Co-authored and hand-delivered an open letter to 10 Downing Street on 28 February 2024, signed by more than 15,000 people, calling on the government to fund early support hubs.",
+    "Received the NexGen Wellbeing Award for Services to Mental Health in February 2023.",
+    "Elected Class President of the My Life My Say Squad Leadership Programme.",
+    "Launched the podcast Creating Your Ladder in October 2026; new episodes are released fortnightly.",
+    "Fellow of the Royal Society of Arts (FRSA) and Aspen Institute UK Rising Leader (2026).",
+    "Reading Politics, International Studies and Hispanic Studies at the University of Warwick (2024 to 2028).",
+    "As Vice-President of Warwick Fencing, secured a £15,000 grant to start para-fencing at the university."
+  ],
+  "knowsAbout": [
+    "Youth mental health",
+    "Prevention and early intervention in mental health",
+    "Mental health policy",
+    "Education policy",
+    "Exam and assessment reform",
+    "Pre-career development",
+    "Early careers and graduate employment",
+    "Youth voice and youth engagement",
+    "Campaigning"
+  ],
+  "languages": [
+    "English and Italian, native",
+    "Spanish, professional working proficiency",
+    "French, elementary"
+  ],
+  "fellowships": [
+    "Fellow of the Royal Society of Arts (FRSA)",
+    "Aspen Institute UK: Rising Leader (2026)",
+    "Youth Mental Health First Aid (MHFA England)",
+    "First Aid at Work, Level 2 (2025)"
+  ]
+}

@@ -1,0 +1,24 @@
+---
+// One episode as a cassette. The cassette is a real link to the episode page.
+import { u } from '../lib/site';
+import type { Episode } from '../lib/podcast';
+interface Props { ep: Episode; i: number; h?: string; player?: boolean }
+const { ep, i, h = 'h3', player = false } = Astro.props;
+const H = h as any;
+const tilt = [-1.5, 1, -0.5, 1.5][i % 4];
+---
+<li class="ep">
+  <a class="tc" style={`--r:${tilt}deg`} href={u('/podcast/' + ep.slug)}
+     data-tape data-no={ep.number} data-guest={ep.guest} data-line={ep.line} data-secs={ep.seconds} data-audio={ep.audio}
+     aria-label={`Episode ${ep.number}: ${ep.guest}. ${ep.headline}`}>
+    <span class="lbl"><b>{ep.guest}</b><i>Ep {ep.number}</i></span>
+    <span class="win" aria-hidden="true"><span class="reel"></span><span class="reel"></span></span>
+    <span class="foot" aria-hidden="true"></span>
+    <span class="screw" style="left:3%;top:5%" aria-hidden="true"></span><span class="screw" style="right:3%;top:5%" aria-hidden="true"></span>
+    <span class="screw" style="left:3%;bottom:6%" aria-hidden="true"></span><span class="screw" style="right:3%;bottom:6%" aria-hidden="true"></span>
+  </a>
+  <H><a href={u('/podcast/' + ep.slug)}>{ep.headline}</a></H>
+  <p class="line">{ep.line}</p>
+  <p class="meta">With {ep.guest} · <time datetime={ep.isoDate}>{ep.dateLabel}</time> · {ep.durationLabel}</p>
+  {player && <button type="button" class="ghost js-only" data-tape-play style="align-self:flex-start">Play in the recorder</button>}
+</li>

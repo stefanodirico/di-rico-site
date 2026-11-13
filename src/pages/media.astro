@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+import { site, media, photo, u, mail } from '../lib/site';
+import { crumbs, PERSON_ID } from '../lib/schema';
+const words = (s: string) => s.trim().split(/\s+/).length;
+const long = site.bios.long.join(' ');
+const shots = [
+  ['headshot-4.png', 'stefano-di-rico-headshot-4.png'], ['headshot-5.png', 'stefano-di-rico-headshot-5.png'],
+  ['headshot-2.png', 'stefano-di-rico-headshot-2.png'], ['headshot-3.png', 'stefano-di-rico-headshot-3.png'],
+  ['headshot-green.jpg', 'stefano-di-rico-headshot-green.jpg'],
+];
+const profile = { '@type': 'ProfilePage', '@id': 'https://di-rico.com/media/#profile', mainEntity: { '@id': PERSON_ID }, name: 'Stefano Di Rico press kit' };
+---
+<Base
+  title="Media and press kit | Stefano Di Rico"
+  description="Press kit for Stefano Di Rico: bios at 50, 100 and 250 words, headshots to download, a suggested introduction for hosts, and where he has featured."
+  path="/media/" og="media" current="/media" schema={[profile, crumbs([['Home', '/'], ['Media', '/media/']])]}>
+  <div class="wrap" style="padding-bottom:72px">
+    <nav class="crumb" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / Media</nav>
+    <header class="page-hero">
+      <div>
+        <p class="eyebrow">Notebook no. 3</p>
+        <h1>Media and press kit</h1>
+        <p class="lead">{media.intro} Everything here is free to use when you write about me or introduce me.</p>
+        <p class="row" style="margin-top:14px"><a class="btn" href={mail('press')}>Request comment</a><a class="lnk" href="#bios">Bios</a><a class="lnk" href="#headshots">Headshots</a></p>
+      </div>
+      <figure class="fig snap" style="--r:-2deg;flex:0 1 250px">
+        <Pic name="earth-minutes-interview.jpg" widths={[250, 500]} sizes="250px" eager />
+        <figcaption>{photo('earth-minutes-interview.jpg').caption}</figcaption>
+      </figure>
+    </header>
+
+    <div class="two">
+      <div class="main">
+        <section class="sheet" id="bios" aria-labelledby="bios-h">
+          <h2 class="sec-h" id="bios-h" style="margin-bottom:22px">Bios</h2>
+          <div class="bio">
+            <h3>Suggested introduction for hosts</h3>
+            <p id="bio-intro" class="lead">{site.bios.intro}</p>
+            <button type="button" class="ghost copy js-only" data-copy="#bio-intro">Copy introduction</button>
+          </div>
+          <div class="bio" style="margin-top:30px">
+            <h3>Short bio ({words(site.bios.short)} words)</h3>
+            <p id="bio-50">{site.bios.short}</p>
+            <button type="button" class="ghost copy js-only" data-copy="#bio-50">Copy short bio</button>
+          </div>
+          <div class="bio" style="margin-top:30px">
+            <h3>Medium bio ({words(site.bios.medium)} words)</h3>
+            <p id="bio-100">{site.bios.medium}</p>
+            <button type="button" class="ghost copy js-only" data-copy="#bio-100">Copy medium bio</button>
+          </div>
+          <div class="bio" style="margin-top:30px">
+            <h3>Long bio ({words(long)} words)</h3>
+            <div id="bio-250">{site.bios.long.map((p: string) => <p style="margin-bottom:10px">{p}</p>)}</div>
+            <button type="button" class="ghost copy js-only" data-copy="#bio-250">Copy long bio</button>
+          </div>
+          <p style="margin-top:26px;font-size:.9375rem;color:var(--muted)">Name: Stefano Di Rico, with a capital D. First use: Stefano Di Rico FRSA. After that: Stefano, or Di Rico.</p>
+        </section>
+
+        <section class="sec" id="headshots" aria-labelledby="hs-h">
+          <h2 class="sec-h" id="hs-h">Headshots</h2>
+          <p style="margin:6px 0 24px">Free to use alongside editorial coverage or an event listing. The first four have a transparent background.</p>
+          <ul class="shots">
+            {shots.map(([name, file]) => (
+              <li class="shot">
+                <Pic name={name} widths={[200, 400]} sizes="200px" />
+                <a href={u('/press/' + file)} download>Download {file.endsWith('.png') ? 'PNG' : 'JPG'}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="sheet" aria-labelledby="facts-h">
+          <h2 class="sec-h" id="facts-h" style="margin-bottom:16px">Quick facts</h2>
+          <ul class="inside">{site.facts.map((f: string) => <li>{f}</li>)}</ul>
+        </section>
+      </div>
+      <aside>
+        <div class="panel blue">
+          <h2>I can comment on</h2>
+          <ul>{media.commentTopics.map((t: string) => <li>{t}</li>)}</ul>
+          <p style="margin-top:10px"><a class="lnk" href={mail('press')}>Request comment</a></p>
+        </div>
+        <div class="panel">
+          <h2>Published and featured</h2>
+          <ul class="outlets" style="columns:1;padding:0;list-style:none">
+            {media.coverage.map((c: any) => <li>{c.url ? <a href={c.url} rel="noopener"><b>{c.outlet}</b></a> : <b>{c.outlet}</b>}{c.what && <span>{c.what}</span>}</li>)}
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>The podcast</h2>
+          <p>{site.podcast.strapline}</p>
+          <p><a class="lnk" href={u('/podcast')}>Creating Your Ladder</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+import { site, photo, u, mail } from '../lib/site';
+import { crumbs, PERSON_ID } from '../lib/schema';
+const profile = { '@type': 'ProfilePage', '@id': 'https://di-rico.com/about/#profile', mainEntity: { '@id': PERSON_ID }, name: 'About Stefano Di Rico' };
+---
+<Base
+  title="About Stefano Di Rico | Campaigner, speaker and FRSA"
+  description="Stefano Di Rico FRSA is an award-winning campaigner, speaker and consultant on young people's mental health, education and pre-career development."
+  path="/about/" og="about" current="/about" schema={[profile, crumbs([['Home', '/'], ['About', '/about/']])]}>
+  <div class="wrap" style="padding-bottom:72px">
+    <nav class="crumb" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / About</nav>
+    <header class="page-hero">
+      <div>
+        <p class="eyebrow">Notebook no. 4</p>
+        <h1>About me</h1>
+        <p class="lead">{site.bios.long[0]}</p>
+      </div>
+      <figure class="fig snap" style="--r:2deg;flex:1 1 320px;max-width:480px">
+        <Pic name="about-landscape.jpg" widths={[480, 720, 960]} sizes="(max-width: 860px) 90vw, 480px" eager />
+      </figure>
+    </header>
+
+    <div class="two">
+      <div class="main">
+        <article class="sheet prose">
+          <h2>Why I do this</h2>
+          <p>I have struggled with my own mental health since I was seven. It was not until I was 15 that I counted how many of my friends had come to me for guidance about their own wellbeing. The number was greater than I could count on two hands. That was when I realised how systemic the issue is.</p>
+          <p>It led me to campaign nationally with <a href={u('/experience-ladder#youngminds')}>YoungMinds</a> and <a href={u('/experience-ladder#my-life-my-say')}>My Life My Say</a>, pushing for earlier access to mental health support and for policymakers to engage properly with the young people their decisions affect.</p>
+          <h2>What I have done</h2>
+          <p>In February 2024 I co-authored <a href={u('/work/letter-to-downing-street')}>a letter signed by more than 15,000 people</a> and delivered it to 10 Downing Street. I was part of campaigns including Fund the Hubs, on early intervention, and <a href={u('/work/votes-at-16')}>Votes at 16</a>. I have contributed to stories for the BBC, Sky News and The Times, and in 2023 I received the NexGen Wellbeing Award for Services to Mental Health.</p>
+          <h2>What I am working on now</h2>
+          <p>Much of my work now looks at the root causes of the mental health emergency: what happens in education, and how we prepare young people with the skills to build fulfilling careers. That is why I started <a href={u('/podcast')}>Creating Your Ladder</a>, a fortnightly podcast helping young people navigate careers, fulfilment and wellbeing.</p>
+          <p>I am a Fellow of the Royal Society of Arts and an Aspen Institute UK Rising Leader. I am reading Politics, International Studies and Hispanic Studies at the University of Warwick, and I am spending my placement year at The Child Lens, working on paediatric health.</p>
+          <h2>Work with me</h2>
+          <p>I <a href={u('/speaking')}>speak</a> at conferences, schools and parliamentary events, and consult for organisations that want to reach or involve young people properly. If you work on education, health or youth policy and want an evidence-led view from a young person who has spent years listening to other young people, I am always glad to talk.</p>
+        </article>
+        <div class="gallery" style="margin-top:36px">
+          {['alex-george.jpg', 'stephen-hammond.jpg', 'no-10.jpg'].map((g, i) => <figure class="fig snap" style={`--r:${[1, -1.5, 0.5][i]}deg`}><Pic name={g} widths={[320, 480, 640]} sizes="(max-width: 860px) 90vw, 300px" /><figcaption>{photo(g).caption}</figcaption></figure>)}
+        </div>
+      </div>
+      <aside>
+        <div class="panel blue">
+          <h2>In short</h2>
+          <ul>{site.facts.map((f: string) => <li>{f}</li>)}</ul>
+        </div>
+        <div class="panel">
+          <h2>Find me</h2>
+          <ul>
+            <li><a href={site.social.linkedin} rel="me noopener">LinkedIn</a></li>
+            <li><a href={site.social.instagram} rel="me noopener">Instagram</a></li>
+            <li><a href={site.social.substack} rel="me noopener">Substack</a></li>
+            <li><a href={mail('general')}>{site.email}</a></li>
+          </ul>
+        </div>
+        <p class="row"><a class="btn" href={mail('booking')}>Book me to speak</a><a class="lnk" href={u('/experience-ladder')}>My Experience Ladder</a></p>
+      </aside>
+    </div>
+  </div>
+</Base>

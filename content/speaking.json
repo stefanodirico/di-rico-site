@@ -1,0 +1,29 @@
+{
+  "intro": "I speak at conferences, schools, universities, companies and parliamentary events about how young people grow up well: their mental health, their education and the route from school into work.",
+  "formats": ["Keynotes", "Panels", "Workshops", "Chairing and hosting", "Live podcast recordings", "Online sessions"],
+  "topics": [
+    { "title": "Mental health: prevention and early intervention", "for": "Conferences, charities, health and education leaders", "summary": "Why support needs to arrive before crisis point, what early help looks like from a young person's side, and what years of campaigning for it taught me." },
+    { "title": "What young people need from education", "for": "Education conferences, school leaders, teachers", "summary": "Pressure, exams and how we measure success, and what schools could look like if they were built around the young people in them, in a world that keeps changing." },
+    { "title": "Schools and sixth forms: finding what drives you", "for": "Assemblies, sixth forms, student events", "summary": "An honest talk for students about trying different things, getting it wrong, looking after yourself and working out what you care about." },
+    { "title": "From school to work: pre-careers and early careers", "for": "Employers, early careers teams, careers leaders", "summary": "How the route into work is changing, what young people are not being told, and what employers can do to make the first rung reachable." },
+    { "title": "For graduates and universities", "for": "Universities, student societies, graduate schemes", "summary": "Building experience alongside a degree, and creating your own ladder when the usual graduate pathways are narrowing." },
+    { "title": "Mental health policy and education policy", "for": "Policy events, think tanks, parliamentary audiences", "summary": "An evidence-led view from a young person who has spent years listening to other young people, on where policy is working and where it is missing them." },
+    { "title": "How organisations can engage young people properly", "for": "Charities, companies, public bodies", "summary": "Moving past the one-off youth panel: what meaningful youth voice looks like, and how to build it into decisions. Nothing about us, without us." }
+  ],
+  "past": [
+    { "name": "The London Assembly", "role": "Panel speaker" },
+    { "name": "The British Library", "role": "Speaker" },
+    { "name": "The Children's Media Conference", "role": "Panellist", "date": "2025-07" },
+    { "name": "The Italian Cultural Institute, London", "role": "Speaker" },
+    { "name": "Spark UK", "role": "Webinar chair" },
+    { "name": "Parliamentary events with YoungMinds", "role": "Speaker and campaigner" }
+  ],
+  "faq": [
+    { "q": "What does Stefano Di Rico speak about?", "a": "Young people's mental health, prevention and early intervention; education and what young people need from it; pre-career development and the route from school to work, including early careers and graduates; mental health policy and education policy; and how organisations can engage young people properly." },
+    { "q": "What kinds of events does he speak at?", "a": "Conferences, schools and sixth forms, universities, companies and parliamentary events. He gives keynotes, joins and chairs panels, runs workshops, and records live episodes of his podcast, Creating Your Ladder." },
+    { "q": "Where has he spoken before?", "a": "Venues and events include the London Assembly, the British Library, the Children's Media Conference and the Italian Cultural Institute in London." },
+    { "q": "How do I book Stefano to speak?", "a": "Email hello@di-rico.com with the date, the audience and what you would like him to cover. Get in touch about availability and fees." },
+    { "q": "Can he speak to students?", "a": "Yes. He speaks in schools, sixth forms and universities about mental health, finding what motivates you and the route into work." },
+    { "q": "Is there a bio and photo I can use to introduce him?", "a": "Yes. The press kit has bios at 50, 100 and 250 words, headshots to download and a suggested introduction for event hosts." }
+  ]
+}

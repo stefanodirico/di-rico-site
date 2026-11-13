@@ -1,0 +1,30 @@
+---
+// Every destination the old podcast site (creatingyourladder.podcast.di-rico.com) linked to, in the same two groups.
+import { site } from '../lib/site';
+const p = site.podcast;
+---
+<div class="listen">
+  <div>
+    <h2 class="hand">Listen on</h2>
+    <p class="row">
+      <a class="ghost" href={p.youtube} rel="noopener">YouTube</a>
+      <a class="ghost" href={p.spotify} rel="noopener">Spotify</a>
+      <a class="ghost" href={p.apple} rel="noopener">Apple Podcasts</a>
+    </p>
+  </div>
+  <div>
+    <h2 class="hand">Follow</h2>
+    <p class="row">
+      <a class="ghost" href={p.instagram} rel="noopener">Instagram</a>
+      <a class="ghost" href={p.tiktok} rel="noopener">TikTok</a>
+      <a class="ghost" href={p.linkedin} rel="noopener">LinkedIn</a>
+      <a class="ghost" href={p.substack} rel="noopener">Substack</a>
+    </p>
+  </div>
+  <div class="rss">
+    <h2 class="hand">Use a different app?</h2>
+    <p>Paste the RSS feed into any podcast app:</p>
+    <p class="row"><a href={p.rss} id="rss-url" style="overflow-wrap:anywhere">{p.rss}</a>
+    <button type="button" class="ghost js-only" data-copy={p.rss}>Copy</button></p>
+  </div>
+</div>

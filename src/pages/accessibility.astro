@@ -1,0 +1,26 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site, u } from '../lib/site';
+---
+<Legal title="Accessibility statement | Stefano Di Rico" h1="Accessibility" path="/accessibility/" updated="13 November 2026"
+  description="How di-rico.com is built to be accessible, the standard it aims for (WCAG 2.2 AA), known limits and how to report a problem.">
+  <h2>What we aim for</h2>
+  <p>We want everyone to be able to use this site. It is built to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA.</p>
+  <h2>How it is built</h2>
+  <ul>
+    <li>Every page works without JavaScript. The notebooks, polaroids and recorder are extras on top of ordinary links and pages.</li>
+    <li>You can reach everything with a keyboard, and there is a “Skip to content” link.</li>
+    <li>Text and controls meet AA colour contrast, and buttons and links are at least 44 pixels tall.</li>
+    <li>Images have text alternatives.</li>
+    <li>Animation is switched off if your device is set to reduce motion.</li>
+    <li>The <a href={u('/experience-ladder')}>experience ladder</a> has a plain list view that prints cleanly.</li>
+  </ul>
+  <h2>Known limits</h2>
+  <ul>
+    <li>Some podcast episodes do not have a transcript yet. We are adding them.</li>
+    <li>Embedded Spotify and YouTube players are made by those companies, and we cannot control how accessible they are. Every episode also has a standard audio player and a download link.</li>
+  </ul>
+  <h2>Tell us about a problem</h2>
+  <p>If something does not work for you, or you need content in another format, email <a href={`mailto:${site.email}?subject=Accessibility`}>{site.email}</a>. We aim to reply within five working days.</p>
+  <p>This statement was prepared on 13 November 2026 from our own testing during the build.</p>
+</Legal>

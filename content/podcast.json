@@ -1,0 +1,8 @@
+{
+  "_help": "Optional extras per episode, keyed by the episode page slug (the last part of its web address, for example peter-wood). 'line' is the one-line hook on the tape shelf. 'youtubeId' adds a YouTube video (loads only after consent). Transcripts go in content/transcripts/<slug>.md.",
+  "episodes": {
+    "peter-wood": { "line": "He has never written a CV, and at 25 he is CEO of a private equity-backed business." },
+    "adam-raillard": { "line": "At 17, he sent 350 cold emails to get into London Fashion Week." },
+    "alice-mazon": { "line": "Five years campaigning against Big Food, and school assemblies still scare her." }
+  }
+}

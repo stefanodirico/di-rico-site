@@ -1,0 +1,48 @@
+{
+  "_help": "No dates on this list. Add 'url' only for a link you have checked.",
+  "intro": "I have contributed to stories for the BBC, Sky News and The Times on young people's mental health, exams and education.",
+  "commentTopics": [
+    "Young people's mental health and waiting times",
+    "Mental health support in schools",
+    "Exam pressure, results day and assessment reform",
+    "The route from school to work",
+    "Social media and young people",
+    "Youth voice in policy"
+  ],
+  "coverage": [
+    {
+      "outlet": "The Times",
+      "what": "Featured with other mental health campaigners in coverage of The Times's Gen Z survey: \"How happy are Gen Z adults?\""
+    },
+    {
+      "outlet": "Sky News",
+      "what": "Featured across Sky News channels for an assessment reform campaign."
+    },
+    {
+      "outlet": "BBC News"
+    },
+    {
+      "outlet": "BBC Radio 5 Live"
+    },
+    {
+      "outlet": "BBC CWR"
+    },
+    {
+      "outlet": "The JVS Show"
+    },
+    {
+      "outlet": "LBC"
+    },
+    {
+      "outlet": "HuffPost"
+    },
+    {
+      "outlet": "Earth Minutes",
+      "what": "On-camera interview."
+    },
+    {
+      "outlet": "Impact Digest",
+      "what": "Profile feature."
+    }
+  ]
+}
